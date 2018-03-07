@@ -10,27 +10,27 @@ Feel free to submit issues or pull requests if you need other types of permissio
 
 ```
 class AppDelegate: UIResponder, UIApplicationDelegate {
-	func application(_ application: UIApplication, didFinishLaunchingWithOptions…) -> Bool {
-		let permissions = Permissions()
-		permissions.notificationOptions = [.alert]
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions…) -> Bool {
+        let permissions = Permissions()
+        permissions.notificationOptions = [.alert]
 		
-		let viewController = OnboardingViewController(permissions: permissions)
-		…
-	}
+        let viewController = OnboardingViewController(permissions: permissions)
+        …
+    }
 }
 
 class OnboardingViewController: UIViewController {
-	init(permissions: Permissions) { … }
+    init(permissions: Permissions) { … }
 
-	func didTapContinueButton() {
-		if self.permissions[.notifications] == .unknown {
-			self.permissions.request(for: .notifications) { status in
-				… // callback is always on the main queue
-			}
-		} else {
-			…
-		}
-	}
+    func didTapContinueButton() {
+        if self.permissions[.notifications] == .unknown {
+            self.permissions.request(for: .notifications) { status in
+                … // callback is always on the main queue
+            }
+        } else {
+            …
+        }
+    }
 }
 ```
 
@@ -42,13 +42,13 @@ When testing your app, you can simply inject a mock-`Permissions` object that do
 
 ```
 class OnboardingTests: XCTestCase {
-	func testPermissionDenied() {
-		let permissions = MockPermissions()
-		permissions.onRequest = { $0.status = .denied }
+    func testPermissionDenied() {
+        let permissions = MockPermissions()
+        permissions.onRequest = { $0.status = .denied }
 
-		let viewController = OnboardingViewController(permissions: permissions)
-		…
-	}
+        let viewController = OnboardingViewController(permissions: permissions)
+        …
+    }
 }
 
 class MockPermissions: Permissions {
